@@ -1,4 +1,4 @@
-# Does SimAM Attention Improve YOLOv8n Detection of Occluded Tomatoes?
+# To what extent does data augmentation affect the generalisation performance of a CNN when classifying tomato leaf diseases?
 
 ## Research Question
 
