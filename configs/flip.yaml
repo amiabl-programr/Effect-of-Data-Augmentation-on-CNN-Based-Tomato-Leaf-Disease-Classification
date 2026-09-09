@@ -1,0 +1,16 @@
+condition: flip
+seed: 42
+
+data_root: data/tomato
+batch_size: 32
+learning_rate: 0.001
+epochs: 20
+dropout: 0.3
+use_class_weights: false
+
+aug_params:
+  flip_prob: 0.5
+
+checkpoint_dir: results/checkpoints
+use_wandb: true
+wandb_project: tomato-leaf-augmentation

@@ -1,0 +1,16 @@
+condition: brightness
+seed: 42
+
+data_root: data/tomato
+batch_size: 32
+learning_rate: 0.001
+epochs: 20
+dropout: 0.3
+use_class_weights: false
+
+aug_params:
+  brightness_factor: 0.3  
+
+checkpoint_dir: results/checkpoints
+use_wandb: true
+wandb_project: tomato-leaf-augmentation
