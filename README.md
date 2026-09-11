@@ -83,7 +83,7 @@ All four conditions share the seed-42, single-run setup described in Method. Fli
 
 ### Baseline — training/validation curves (W&B export, seed 42, 20 epochs)
 - **Train:** accuracy rose from 0.699 (epoch 0) to 0.990 (epoch 19); loss fell from 0.880 to 0.035 over the same span, dropping under 0.10 by epoch 6 and staying there.
-- **Validation:** accuracy rose more slowly and noisily — 0.817 → peaked at **0.948 (epoch 17)**, this is the checkpoint `train.py` would have saved as best — and finished at 0.937 (epoch 19). Validation loss bottomed at 0.191 (epoch 10) but stayed noisy throughout, spiking to 0.584 at epoch 15 (coinciding with a val-accuracy dip to 0.894 that same epoch) before recovering by epoch 17.
+- **Validation:** accuracy rose more slowly — 0.817 → peaked at **0.948 (epoch 17)**, this is the checkpoint `train.py` would have saved as best — and finished at 0.937 (epoch 19). Validation loss bottomed at 0.191 (epoch 10) but stayed noisy throughout, spiking to 0.584 at epoch 15 (coinciding with a val-accuracy dip to 0.894 that same epoch) before recovering by epoch 17.
 
 Test-set metrics (accuracy, confusion matrix) haven't been generated yet — `evaluate.py` hasn't been run against the baseline checkpoint. Flip, rotation and brightness have no results yet since they're still training.
 
