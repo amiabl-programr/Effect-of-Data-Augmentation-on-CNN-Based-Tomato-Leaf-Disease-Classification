@@ -26,68 +26,47 @@ This creates an opportunity for a controlled experiment in which individual augm
 In addition to overall classification performance, examining class-level results can show whether augmentation's effect is consistent across tomato disease categories. This matters because improved aggregate accuracy does not necessarily mean every disease class benefits equally. The experiment will therefore investigate not only whether augmentation changes CNN classification performance but also whether the type of augmentation influences performance distribution across disease classes.
 The study is deliberately limited to the PlantVillage tomato subset to provide enough data for a controlled, reproducible experiment. Results will be interpreted within the limitations of PlantVillage, particularly its controlled imaging conditions and limited representation of real-world field environments.
 
+
+
 ## Method
-### Research Design
-This study will use a controlled experimental design to investigate the effect of individual image augmentation techniques on CNN-based tomato leaf disease classification.
 
-Four training conditions will be compared:
-1. Baseline: No image augmentation.
-2. Flip: Horizontal flipping applied to training images.
-3. Rotation: Random rotation applied to training images.
-4. Brightness: Random brightness adjustment applied to training images.
-
-The baseline provides a reference against which the three augmentation techniques can be evaluated. Each augmentation technique will be tested independently rather than combining multiple transformations. This allows any observed difference in model performance to be attributed more directly to the augmentation condition.
-The central independent variable is the augmentation condition, while the CNN architecture, dataset split, preprocessing, optimiser, learning rate, batch size, number of training epochs, and evaluation procedure will remain constant across experiments.
+### Research design
+A controlled experiment compares four training conditions — **baseline** (no augmentation), **flip**, **rotation**, and **brightness** — each trained independently rather than combined, so any performance difference can be attributed to the augmentation condition itself. Augmentation is the only variable that changes between runs; CNN architecture, dataset split, preprocessing, optimiser, learning rate, batch size, epoch count and evaluation procedure are held constant.
 
 ### Dataset
-The experiment will use the tomato subset of the PlantVillage dataset. It will include only images belonging to tomato disease/healthy classes.
+The tomato-disease subset of PlantVillage, laid out as an `ImageFolder` (`data/<class_name>/*.jpg`). `src/inspect_dataset.py` reports the number of classes, per-class image counts and class balance before any training happens.
 
-Before training, the dataset will be inspected to determine:
-- the number of images in each class;
-- image dimensions and formats;
-- class balance;
-- the number of classes represented.
+### Splitting
+`stratified_split()` in `src/dataset.py` performs a stratified 70/15/15 train/val/test split (via `sklearn.train_test_split`) **before** any augmentation is applied, so transformed copies of the same source image can't leak across splits. The split is seeded (`seed=42`) and reused identically across all four conditions; the test set is never touched until final evaluation.
 
-The final results will report the class distribution so the classifier's performance can be interpreted in the context of the dataset.
-PlantVillage is appropriate for this experiment because it provides substantially more tomato images than smaller field-orientated datasets, allowing the four experimental conditions to be trained and evaluated using a sufficiently large and consistent dataset. However, its controlled imaging environment will be acknowledged as a limitation when discussing generalisation to real agricultural environments.
+### Preprocessing
+Every image — regardless of condition or split — is resized to 128×128, converted to a tensor, and normalized with ImageNet mean/std. Augmentation, where applicable, is inserted only into the training pipeline, ahead of this shared preprocessing:
 
-### Dataset Splitting
-The dataset will be divided into:
-- Training set: 70%
-- Validation set: 15%
-- Test set: 15%
-The split will be performed before augmentation.
+- **Train:** image → augmentation (if any) → resize/normalize → CNN
+- **Val/Test:** image → resize/normalize → CNN
 
-A stratified split will be used so that each disease class maintains approximately the same proportion across the training, validation and test sets.
-The test set will remain completely untouched during training. It will only be used for the final evaluation of each experimental condition.
-This is important because applying augmentation before splitting the dataset could result in transformed versions of the same original image appearing in different subsets, producing data leakage and overly optimistic performance estimates.
-The same split will be reused for all four experiments.
+### Augmentation conditions
+Implemented in `build_augmentation()` (`src/dataset.py`), parameters fixed per condition in `configs/*.yaml`:
 
-### Image Preprocessing
-All images will undergo the same preprocessing regardless of experimental condition.
-Images will be:
-loaded from the dataset;
-resized to a fixed input resolution;
-converted to the required image format;
-converted to tensors;
-normalized using the same normalization parameters.
+| Condition | Transform | Parameter |
+|---|---|---|
+| Baseline | none (identity) | — |
+| Flip | `RandomHorizontalFlip` | p = 0.5 |
+| Rotation | `RandomRotation` | ±20° |
+| Brightness | `ColorJitter(brightness=...)` | factor = 0.3 |
 
-No augmentation will be applied to validation or test images.
-The preprocessing pipeline will therefore be:
+### Model
+`SmallCNN` (`src/model.py`): three convolutional blocks (32→64→128 channels, 3×3 kernels, ReLU, 2×2 max-pool), flattened into an FC(256) layer with dropout (0.3), then a final FC layer with one output per class. Logits are trained with softmax cross-entropy; the network is intentionally small since the goal is an isolated augmentation comparison, not benchmark accuracy.
 
-Training:
-Original image → preprocessing → optional augmentation → normalization → CNN
+### Training
+Adam optimiser, lr = 0.001, batch size 32, 20 epochs, categorical cross-entropy loss (`src/train.py`). Class weighting (`w_c = N / (C·N_c)`) is available via `compute_class_weights()` and currently enabled (`use_class_weights: true`) in all four configs. The checkpoint with the best validation accuracy is saved per run to `results/checkpoints/`.
 
-Validation/Test:
-Original image → preprocessing → normalization → CNN
-
-Keeping preprocessing identical across experiments prevents preprocessing differences from becoming an additional experimental variable.
+### Reproducibility & tracking
+`set_seed()` (`src/utils.py`) fixes the seed across Python, NumPy, PyTorch and cuDNN (deterministic mode). Every run logs to Weights & Biases under the `tomato-leaf-augmentation` project, grouped by condition (`baseline` / `flip` / `rotation` / `brightness`) so runs can be compared without manual record-keeping.
 
 
-### CNN Model
-A small CNN classifier will be used rather than a large state-of-the-art architecture. The purpose of the model is to provide a consistent experimental platform for evaluating augmentation rather than to maximize benchmark accuracy.
-The CNN will consist of convolutional layers for feature extraction followed by nonlinear activation functions and pooling layers. The extracted features will then be passed through fully connected layers and a final classification layer.
-The final layer will contain one output for each tomato disease class.
+### Evaluation
+`src/evaluate.py` loads a checkpoint, runs inference on the held-out test split, and reports accuracy, macro precision/recall/F1, a full per-class classification report, and a confusion matrix heatmap saved to `results/confusion_matrices/`.
 
 ## Experiments
 
