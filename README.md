@@ -92,6 +92,22 @@ Test-set metrics (accuracy, confusion matrix) haven't been generated yet — `ev
 
 
 ## Results
+### Baseline per-class results
+
+| Class | Precision | Recall | F1-Score | Support |
+|---|---:|---:|---:|---:|
+| Tomato_Bacterial_spot | 0.96 | 0.98 | 0.97 | 319 |
+| Tomato_Early_blight | 0.89 | 0.81 | 0.85 | 150 |
+| Tomato_Late_blight | 0.93 | 0.97 | 0.95 | 287 |
+| Tomato_Leaf_Mold | 0.98 | 0.90 | 0.94 | 143 |
+| Tomato_Septoria_leaf_spot | 0.96 | 0.96 | 0.96 | 266 |
+| Tomato_Spider_mites_Two_spotted_spider_mite | 0.95 | 0.96 | 0.96 | 252 |
+| Tomato__Target_Spot | 0.93 | 0.94 | 0.93 | 210 |
+| Tomato__Tomato_YellowLeaf__Curl_Virus | 0.99 | 0.98 | 0.99 | 482 |
+| Tomato__Tomato_mosaic_virus | 0.97 | 1.00 | 0.98 | 56 |
+| Tomato_healthy | 1.00 | 1.00 | 1.00 | 238 |
+| **Macro Average** | **0.95** | **0.95** | **0.95** | **2,403** |
+| **Weighted Average** | **0.96** | **0.96** | **0.96** | **2,403** |
 
 
 ## Analysis
