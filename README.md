@@ -26,10 +26,68 @@ This creates an opportunity for a controlled experiment in which individual augm
 In addition to overall classification performance, examining class-level results can show whether augmentation's effect is consistent across tomato disease categories. This matters because improved aggregate accuracy does not necessarily mean every disease class benefits equally. The experiment will therefore investigate not only whether augmentation changes CNN classification performance but also whether the type of augmentation influences performance distribution across disease classes.
 The study is deliberately limited to the PlantVillage tomato subset to provide enough data for a controlled, reproducible experiment. Results will be interpreted within the limitations of PlantVillage, particularly its controlled imaging conditions and limited representation of real-world field environments.
 
-
-
 ## Method
+### Research Design
+This study will use a controlled experimental design to investigate the effect of individual image augmentation techniques on CNN-based tomato leaf disease classification.
 
+Four training conditions will be compared:
+1. Baseline: No image augmentation.
+2. Flip: Horizontal flipping applied to training images.
+3. Rotation: Random rotation applied to training images.
+4. Brightness: Random brightness adjustment applied to training images.
+
+The baseline provides a reference against which the three augmentation techniques can be evaluated. Each augmentation technique will be tested independently rather than combining multiple transformations. This allows any observed difference in model performance to be attributed more directly to the augmentation condition.
+The central independent variable is the augmentation condition, while the CNN architecture, dataset split, preprocessing, optimiser, learning rate, batch size, number of training epochs, and evaluation procedure will remain constant across experiments.
+
+### Dataset
+The experiment will use the tomato subset of the PlantVillage dataset. It will include only images belonging to tomato disease/healthy classes.
+
+Before training, the dataset will be inspected to determine:
+- the number of images in each class;
+- image dimensions and formats;
+- class balance;
+- the number of classes represented.
+
+The final results will report the class distribution so the classifier's performance can be interpreted in the context of the dataset.
+PlantVillage is appropriate for this experiment because it provides substantially more tomato images than smaller field-orientated datasets, allowing the four experimental conditions to be trained and evaluated using a sufficiently large and consistent dataset. However, its controlled imaging environment will be acknowledged as a limitation when discussing generalisation to real agricultural environments.
+
+### Dataset Splitting
+The dataset will be divided into:
+- Training set: 70%
+- Validation set: 15%
+- Test set: 15%
+The split will be performed before augmentation.
+
+A stratified split will be used so that each disease class maintains approximately the same proportion across the training, validation and test sets.
+The test set will remain completely untouched during training. It will only be used for the final evaluation of each experimental condition.
+This is important because applying augmentation before splitting the dataset could result in transformed versions of the same original image appearing in different subsets, producing data leakage and overly optimistic performance estimates.
+The same split will be reused for all four experiments.
+
+### Image Preprocessing
+All images will undergo the same preprocessing regardless of experimental condition.
+Images will be:
+loaded from the dataset;
+resized to a fixed input resolution;
+converted to the required image format;
+converted to tensors;
+normalized using the same normalization parameters.
+
+No augmentation will be applied to validation or test images.
+The preprocessing pipeline will therefore be:
+
+Training:
+Original image → preprocessing → optional augmentation → normalization → CNN
+
+Validation/Test:
+Original image → preprocessing → normalization → CNN
+
+Keeping preprocessing identical across experiments prevents preprocessing differences from becoming an additional experimental variable.
+
+
+### CNN Model
+A small CNN classifier will be used rather than a large state-of-the-art architecture. The purpose of the model is to provide a consistent experimental platform for evaluating augmentation rather than to maximize benchmark accuracy.
+The CNN will consist of convolutional layers for feature extraction followed by nonlinear activation functions and pooling layers. The extracted features will then be passed through fully connected layers and a final classification layer.
+The final layer will contain one output for each tomato disease class.
 
 ## Experiments
 
