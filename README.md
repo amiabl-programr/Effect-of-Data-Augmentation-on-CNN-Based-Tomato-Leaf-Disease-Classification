@@ -9,7 +9,7 @@ Appropriate data augmentation will improve generalization and reduce overfitting
 ## Literature review
 Tomato diseases can significantly reduce crop productivity, making early, accurate disease identification challenging in agricultural applications. In recent years, deep learning, particularly convolutional neural networks (CNNs), has become a widely used approach for plant disease classification and detection. A review of tomato disease and pest detection research by Jelali et al. (2024) found that CNN-based approaches remain dominant, with architectures including VGG, ResNet, DenseNet, R-CNN and custom CNN models being frequently used. More recently, transformer-based and CNN-transformer hybrid approaches have also emerged as alternatives for improving feature representation and robustness.
 
-A major dataset that is used in tomato plant disease research is the PlantVillage dataset. It contains more than 54,000 laboratory-captured images covering multiple plant species and disease categories. Its controlled imaging conditions and relatively uniform backgrounds make it useful for developing and comparing classification models. However, these same characteristics limit its representation of real agricultural environments. Real-world images may contain varying illumination, shadows, overlapping leaves, complex backgrounds, and occlusions, which are largely absent from PlantVillage. Consequently, models that achieve very high performance on PlantVillage may not generalise as well to field conditions.
+A major dataset that is used in tomato plant disease research is the PlantVillage (Hughes & Salathé, 2015) dataset. It contains more than 54,000 laboratory-captured images covering multiple plant species and disease categories. Its controlled imaging conditions and relatively uniform backgrounds make it useful for developing and comparing classification models. However, these same characteristics limit its representation of real agricultural environments. Real-world images may contain varying illumination, shadows, overlapping leaves, complex backgrounds, and occlusions, which are largely absent from PlantVillage. Consequently, models that achieve very high performance on PlantVillage may not generalise as well to field conditions.
 PlantDoc was introduced as a more realistic alternative containing images captured under less controlled conditions. Although such datasets better represent practical agricultural environments, they are considerably smaller and can contain substantial class imbalance. For a small experimental study, PlantVillage therefore provides a larger, more consistent dataset for controlled investigation, but its limitations must be considered when interpreting the results.
 
 During training, data augmentation is a common technique used to increase the effective diversity of training data by applying transformations to existing images. Shorten and Khoshgoftaar (2019) categorise augmentation broadly into data-warping approaches and methods that generate or combine additional samples. Traditional image-space transformations include geometric operations such as rotation, flipping, cropping and scaling, as well as colour and intensity transformations. More advanced approaches include MixUp, CutMix and generative methods such as GAN-based augmentation.
@@ -81,3 +81,18 @@ Adam optimiser, lr = 0.001, batch size 32, 20 epochs, categorical cross-entropy 
 
 
 ## References
+
+Hughes, D. P., & Salathé, M. (2015). An open access repository of images on plant health to enable the development of mobile disease diagnostics. *arXiv*. arXiv:1511.08060.
+
+Jelali, M. (2024). Deep learning networks-based tomato disease and pest detection: A first review of research studies using real field datasets. *Frontiers in Plant Science, 15*, 1493322. doi:10.3389/fpls.2024.1493322
+
+Joshi, K., Hooda, S., Sharma, A., Sonah, H., Deshmukh, R., Tuteja, N., Gill, S. S., & Gill, R. (2025). Precision diagnosis of tomato diseases for sustainable agriculture through deep learning approach with hybrid data augmentation. *Current Plant Biology, 41*, 100437. doi:10.1016/j.cpb.2025.100437
+
+Shorten, C., & Khoshgoftaar, T. M. (2019). A survey on image data augmentation for deep learning. *Journal of Big Data, 6*, 60. doi:10.1186/s40537-019-0197-0
+
+Singh, D., Jain, N., Jain, P., Kayal, P., Kumawat, S., & Batra, N. (2020). PlantDoc: A dataset for visual plant disease detection. In *Proceedings of the 7th ACM IKDD CoDS and 25th COMAD* (pp. 249–253). Association for Computing Machinery. doi:10.1145/3371158.3371196
+
+Wagle, S. A., Harikrishnan, R., Sampe, J., Mohammad, F., & Md. Ali, S. H. (2021). Effect of data augmentation in the classification and validation of tomato plant disease with deep learning methods. *Traitement du Signal, 38*(6), 1657–1670. doi:10.18280/ts.380609
+
+Xu, M., Yoon, S., Fuentes, A., & Park, D. S. (2023). A comprehensive survey of image augmentation techniques for deep learning. *Pattern Recognition, 137*, 109347. doi:10.1016/j.patcog.2023.109347
+
