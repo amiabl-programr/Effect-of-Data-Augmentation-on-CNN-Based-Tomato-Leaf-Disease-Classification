@@ -6,7 +6,7 @@ batch_size: 32
 learning_rate: 0.001
 epochs: 20
 dropout: 0.3
-use_class_weights: false
+use_class_weights: true
 
 aug_params:
   brightness_factor: 0.3  
