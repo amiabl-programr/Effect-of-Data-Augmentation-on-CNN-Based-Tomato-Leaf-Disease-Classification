@@ -109,6 +109,91 @@ Test-set metrics (accuracy, confusion matrix) haven't been generated yet — `ev
 | **Macro Average** | **0.95** | **0.95** | **0.95** | **2,403** |
 | **Weighted Average** | **0.96** | **0.96** | **0.96** | **2,403** |
 
+### Flip Augmentation — Overall Test Performance
+
+| Metric          |      Score |
+| --------------- | ---------: |
+| Accuracy        | **96.88%** |
+| Macro Precision |     96.23% |
+| Macro Recall    |     96.66% |
+| Macro F1        |     96.43% |
+| Test Samples    |      2,403 |
+| Seed            |         42 |
+
+### Flip Augmentation — Per-Class Performance
+
+| Class                                       | Precision |   Recall | F1-Score |   Support |
+| ------------------------------------------- | --------: | -------: | -------: | --------: |
+| Tomato_Bacterial_spot                       |      0.97 |     0.98 |     0.98 |       319 |
+| Tomato_Early_blight                         |      0.90 |     0.87 |     0.88 |       150 |
+| Tomato_Late_blight                          |      0.97 |     0.96 |     0.96 |       287 |
+| Tomato_Leaf_Mold                            |      0.97 |     0.97 |     0.97 |       143 |
+| Tomato_Septoria_leaf_spot                   |      0.98 |     0.98 |     0.98 |       266 |
+| Tomato_Spider_mites_Two_spotted_spider_mite |      0.97 |     0.97 |     0.97 |       252 |
+| Tomato__Target_Spot                         |      0.91 |     0.96 |     0.94 |       210 |
+| Tomato__Tomato_YellowLeaf__Curl_Virus       |      1.00 |     0.97 |     0.99 |       482 |
+| Tomato__Tomato_mosaic_virus                 |      0.97 |     1.00 |     0.98 |        56 |
+| Tomato_healthy                              |      1.00 |     1.00 |     1.00 |       238 |
+| **Macro Average**                           |  **0.96** | **0.97** | **0.96** | **2,403** |
+| **Weighted Average**                        |  **0.97** | **0.97** | **0.97** | **2,403** |
+
+### Rotation Augmentation — Overall Test Performance
+
+| Metric          |      Score |
+| --------------- | ---------: |
+| Accuracy        | **96.05%** |
+| Macro Precision |     95.11% |
+| Macro Recall    |     96.04% |
+| Macro F1        |     95.52% |
+| Test Samples    |      2,403 |
+| Seed            |         42 |
+
+### Rotation Augmentation — Per-Class Performance
+
+| Class                                       | Precision |   Recall | F1-Score |   Support |
+| ------------------------------------------- | --------: | -------: | -------: | --------: |
+| Tomato_Bacterial_spot                       |      0.98 |     0.97 |     0.98 |       319 |
+| Tomato_Early_blight                         |      0.87 |     0.93 |     0.90 |       150 |
+| Tomato_Late_blight                          |      0.98 |     0.91 |     0.94 |       287 |
+| Tomato_Leaf_Mold                            |      0.98 |     0.95 |     0.96 |       143 |
+| Tomato_Septoria_leaf_spot                   |      0.94 |     0.98 |     0.96 |       266 |
+| Tomato_Spider_mites_Two_spotted_spider_mite |      0.94 |     0.94 |     0.94 |       252 |
+| Tomato__Target_Spot                         |      0.91 |     0.94 |     0.93 |       210 |
+| Tomato__Tomato_YellowLeaf__Curl_Virus       |      0.99 |     0.98 |     0.98 |       482 |
+| Tomato__Tomato_mosaic_virus                 |      0.92 |     1.00 |     0.96 |        56 |
+| Tomato_healthy                              |      1.00 |     1.00 |     1.00 |       238 |
+| **Macro Average**                           |  **0.95** | **0.96** | **0.96** | **2,403** |
+| **Weighted Average**                        |  **0.96** | **0.96** | **0.96** | **2,403** |
+
+
+### Brightness Augmentation — Overall Test Performance
+
+| Metric          |      Score |
+| --------------- | ---------: |
+| Accuracy        | **95.46%** |
+| Macro Precision |     95.55% |
+| Macro Recall    |     94.92% |
+| Macro F1        |     95.19% |
+| Test Samples    |      2,403 |
+| Seed            |         42 |
+
+### Brightness Augmentation — Per-Class Performance
+
+| Class                                       | Precision |   Recall | F1-Score |   Support |
+| ------------------------------------------- | --------: | -------: | -------: | --------: |
+| Tomato_Bacterial_spot                       |      0.95 |     0.97 |     0.96 |       319 |
+| Tomato_Early_blight                         |      0.94 |     0.85 |     0.89 |       150 |
+| Tomato_Late_blight                          |      0.92 |     0.96 |     0.94 |       287 |
+| Tomato_Leaf_Mold                            |      0.98 |     0.92 |     0.95 |       143 |
+| Tomato_Septoria_leaf_spot                   |      0.96 |     0.93 |     0.94 |       266 |
+| Tomato_Spider_mites_Two_spotted_spider_mite |      0.96 |     0.96 |     0.96 |       252 |
+| Tomato__Target_Spot                         |      0.93 |     0.93 |     0.93 |       210 |
+| Tomato__Tomato_YellowLeaf__Curl_Virus       |      0.97 |     0.98 |     0.97 |       482 |
+| Tomato__Tomato_mosaic_virus                 |      0.97 |     1.00 |     0.98 |        56 |
+| Tomato_healthy                              |      0.98 |     0.99 |     0.98 |       238 |
+| **Macro Average**                           |  **0.96** | **0.95** | **0.95** | **2,403** |
+| **Weighted Average**                        |  **0.95** | **0.95** | **0.95** | **2,403** |
+
 
 ## Analysis
 
